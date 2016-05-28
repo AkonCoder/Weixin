@@ -1,0 +1,13 @@
+D:\MobAPI\Controls\bin\Release\Controls.dll
+D:\MobAPI\Controls\bin\Release\Controls.pdb
+D:\MobAPI\Controls\bin\Release\CommonLib.dll
+D:\MobAPI\Controls\bin\Release\Models.dll
+D:\MobAPI\Controls\bin\Release\RestSharp.dll
+D:\MobAPI\Controls\bin\Release\log4net.dll
+D:\MobAPI\Controls\bin\Release\NPinyin.dll
+D:\MobAPI\Controls\bin\Release\fastJSON.dll
+D:\MobAPI\Controls\bin\Release\CommonLib.pdb
+D:\MobAPI\Controls\bin\Release\Models.pdb
+D:\MobAPI\Controls\obj\Release\Controls.csprojResolveAssemblyReference.cache
+D:\MobAPI\Controls\obj\Release\Controls.dll
+D:\MobAPI\Controls\obj\Release\Controls.pdb

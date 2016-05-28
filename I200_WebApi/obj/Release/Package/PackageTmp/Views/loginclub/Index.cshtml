@@ -1,0 +1,132 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>生意专家论坛</title>
+    <style type="text/css">
+        .center {
+            width: 300px;
+            height: 200px;
+            padding: 10px;
+            margin: 20px auto;
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            display: -moz-box;
+            display: -o-box;
+            -o-box-orient: horizontal;
+            -o-box-pack: center;
+            -o-box-align: center;
+            display: box;
+            box-orient: horizontal;
+            box-pack: center;
+            box-align: center;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+            ul li {
+                text-align: center;
+            }
+
+        .tips {
+            color: #f50;
+        }
+
+        .copyright {
+            font-size:12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div>
+            <ul>
+                <li><span class="tips">正在进入论坛...<span id="timeSpan"></span></span></li>
+                <li><span class="copyright">生意专家</span></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    var androidFn;
+    if (typeof contact !== "undefined") {
+        androidFn = contact;
+    }
+    var InitTimer = 2;
+
+    window.onload = function () {
+        GetLoginCode();
+    }
+
+    function GotoClub(code) {
+        var urlCode = "";
+        if (androidFn) {
+            //Android特殊处理Url编码问题
+            var index = code.indexOf("code=") + 5;
+            var headString = code.substring(0, index);
+            var lastString = code.substring(index, code.length);
+            lastString = encodeURIComponent(lastString);
+            urlCode = headString + lastString;
+        } else {
+            urlCode = code;
+        }
+        var myScript = document.createElement("script");
+        myScript.type = "text/javascript";
+        myScript.onload = function () {
+            StartGo(0);
+        }
+        myScript.src = urlCode;
+        document.body.appendChild(myScript);
+        StartGo();
+    }
+
+    function StartGo(now) {
+        var ua = navigator.userAgent.toLowerCase();
+        var locationUrl = "http://www.i200.cn/bbs/forum.php?mobile=2&from=mobile";
+
+        if (now != null && now != undefined) {
+            InitTimer = 0;
+        }
+
+        if (InitTimer <= 0) {
+            if (ua.indexOf('ipad') != -1) {
+                locationUrl = "http://www.i200.cn/bbs/forum.php?from=ipdclient";
+            }
+            window.location.href = locationUrl;
+        } else {
+            setTimeout(function () {
+                document.getElementById("timeSpan").innerHTML = InitTimer;
+                if (InitTimer > 0) {
+                    InitTimer = InitTimer - 1;
+                } else {
+                    InitTimer = 0;
+                }
+                StartGo();
+            }, 1000);
+        }
+    }
+
+    function GetLoginCode() {
+        if (androidFn) {
+            androidFn.GetLoginCode();
+        } else {
+            window.location.href = "ios://GetLoginCode/";
+        }
+    }
+</script>

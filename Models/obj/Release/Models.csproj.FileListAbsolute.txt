@@ -1,0 +1,5 @@
+D:\MobAPI\Models\bin\Release\Models.dll
+D:\MobAPI\Models\bin\Release\Models.pdb
+D:\MobAPI\Models\obj\Release\Models.dll
+D:\MobAPI\Models\obj\Release\Models.pdb
+D:\MobAPI\Models\obj\Release\Models.csprojResolveAssemblyReference.cache

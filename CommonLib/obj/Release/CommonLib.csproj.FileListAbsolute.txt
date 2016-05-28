@@ -1,0 +1,8 @@
+D:\MobAPI\CommonLib\bin\Release\CommonLib.dll
+D:\MobAPI\CommonLib\bin\Release\CommonLib.pdb
+D:\MobAPI\CommonLib\bin\Release\fastJSON.dll
+D:\MobAPI\CommonLib\bin\Release\log4net.dll
+D:\MobAPI\CommonLib\bin\Release\NPinyin.dll
+D:\MobAPI\CommonLib\bin\Release\RestSharp.dll
+D:\MobAPI\CommonLib\obj\Release\CommonLib.dll
+D:\MobAPI\CommonLib\obj\Release\CommonLib.pdb

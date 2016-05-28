@@ -1,0 +1,114 @@
+diff a/I200_WebApi/Controllers/Sales/SalesController.cs b/I200_WebApi/Controllers/Sales/SalesController.cs	(rejected hunks)
+@@ -518,56 +518,74 @@
+             #endregion
+         }
+ 
+-        public ResponseModel Post(string behave, [FromBody]ApiModel.DeleteSaleList model)
++        public ResponseModel Post(string behave, [FromBody]ApiModel.DeleteSaleLists model)
+         {
+             #region 删除销售记录
+-            var responseModel = new ResponseModel();
+ 
++            var responseModel = new ResponseModel();
+             var fnRequestProxy = new RequestProxy();
+             var oToken = Request.GetAccId();
+-
+-
+-
+-
+             var responseInfo = new ProxyResponseModel();
+-
+-            if (model.Ver == 2)
++            if (model.DeleteSales.Count <= 0)
+             {
+-                if (model.saleListId <1 || behave != "delete")
+-                {
+-                    //缺少必须参数
+-                    responseModel = ReturnModel.Error(-3, "缺少必须参数");
+-                    return responseModel;
+-                }
+-                var requestJson = Helper.JsonSerializeObject(model);
+-                responseInfo = fnRequestProxy.SalesDel(requestJson, oToken);
++                //缺少必须参数
++                responseModel = ReturnModel.Error(-3, "缺少必须参数");
++                return responseModel;
+             }
+-            else
+-            {
+ 
+-                if (string.IsNullOrWhiteSpace(model.val) || behave != "delete")
++            foreach (var item in model.DeleteSales)
++            {
++                if (item.Ver == 2)
+                 {
+-                    //缺少必须参数
+-                    responseModel = ReturnModel.Error(-3, "缺少必须参数");
+-                    return responseModel;
++                    if (item.saleListId < 1 || behave != "delete")
++                    {
++                        //缺少必须参数
++                        responseModel = ReturnModel.Error(-3, "缺少必须参数");
++                        return responseModel;
++                    }
++                    var requestJson = Helper.JsonSerializeObject(item);
++                    responseInfo = fnRequestProxy.SalesDel(requestJson, oToken);
++                    if (responseInfo.Status >= 0)
++                    {
++                        responseModel = new ResponseModel
++                        {
++                            Status = 0,
++                            Ver = "1.0",
++                            ErrCode = responseInfo.Status,
++                            ErrMsg = responseInfo.ErrDesc,
++                            Data = ""
++                        };
++                    }
++                    else
++                    {
++                        responseModel = ReturnModel.TokenFail();
++                    }
+                 }
+-                responseInfo = fnRequestProxy.SalesDelOld(model.val, oToken);
+-            }
+-
+-            if (responseInfo.Status >= 0)
+-            {
+-                responseModel = new ResponseModel
++                else
+                 {
+-                    Status = 0,
+-                    Ver = "1.0",
+-                    ErrCode = responseInfo.Status,
+-                    ErrMsg = responseInfo.ErrDesc,
+-                    Data = ""
+-                };
+-            }
+-            else
+-            {
+-                responseModel = ReturnModel.TokenFail();
++                    if (string.IsNullOrWhiteSpace(item.val) || behave != "delete")
++                    {
++                        //缺少必须参数
++                        responseModel = ReturnModel.Error(-3, "缺少必须参数");
++                        return responseModel;
++                    }
++                    responseInfo = fnRequestProxy.SalesDelOld(item.val, oToken);
++                    if (responseInfo.Status >= 0)
++                    {
++                        responseModel = new ResponseModel
++                        {
++                            Status = 0,
++                            Ver = "1.0",
++                            ErrCode = responseInfo.Status,
++                            ErrMsg = responseInfo.ErrDesc,
++                            Data = ""
++                        };
++                    }
++                    else
++                    {
++                        responseModel = ReturnModel.TokenFail();
++                    }
++                }
+             }
+ 
+             return responseModel;
