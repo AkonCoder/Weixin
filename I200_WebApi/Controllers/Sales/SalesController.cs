@@ -12,6 +12,8 @@ namespace I200_WebApi.Controllers.Sales
 {
     public class SalesController : ApiController
     {
+
+
         // GET api/sales
         //public IEnumerable<string> Get()
         //{
